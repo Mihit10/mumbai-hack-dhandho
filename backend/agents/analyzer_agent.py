@@ -187,44 +187,48 @@ Format as JSON:
         
         return red_flags[:3]  # Max 3 red flags
     
-    async def answer_question(self, question: str, context: Optional[str] = None) -> str:
+    async def answer_with_memory(self, messages: List[Dict], knowledge_base: str) -> str:
         """
-        Answers a user's question based on the provided context or general knowledge.
+        Answers a user's question using a single, comprehensive prompt with rules,
+        conversation history, and a knowledge base.
         """
-        model = "llama3-70b-8192" # Use the powerful model for final answers
-        
-        if context:
-            # Case A: We have specific data for the company
-            prompt = f"""
-            You are a financial analyst bot. Your knowledge is strictly limited to the data provided below.
-            Do not use any external knowledge or real-time data.
-            
-            DATA CONTEXT:
-            {context}
+        if not self.client:
+            return "Chat feature requires Groq API key. Please set GROQ_API_KEY environment variable."
 
-            User's question: "{question}"
+        # This is the system prompt that controls all AI behavior
+        system_prompt = f"""
+        You are 'Khabri', an AI financial assistant. Your purpose is to be helpful, accurate, and safe.
 
-            Based ONLY on the data context provided, answer the user's question concisely.
-            If the data is insufficient to answer, state that you only have limited information on the topic from the latest analysis.
-            """
-        else:
-            # Case B: We have no specific data, use general knowledge
-            prompt = f"""
-            You are a helpful financial assistant. You do not have access to private analysis data for the requested stock.
-            The user is asking: "{question}"
-            
-            Provide a brief, neutral, and publicly known summary about the company and its stock.
-            Do not give financial advice. Do not invent numbers, specific performance data, or sentiments.
-            Start your response with "Based on general public information..."
-            """
-        
+        **STRICT BEHAVIORAL RULES:**
+        1.  **SINGLE SOURCE OF TRUTH:** Your only source for specific company performance data (revenue, profit, etc.) is the JSON provided in the 'KNOWLEDGE BASE'. You MUST **NEVER** invent numbers or metrics. Quote the numbers exactly as they are.
+        2.  **CONVERSATION MEMORY:** Maintain context using the 'CHAT HISTORY'. Your response should follow naturally from the last user query.
+        3.  **NO FINANCIAL ADVICE:** You MUST NOT give any investment advice. Do not suggest buying, selling, or holding.
+        4.  **STAY ON TOPIC:** You are a financial assistant. Politely decline any requests unrelated to finance, stocks, or business.
+
+        **QUERY HANDLING LOGIC:**
+        -   **IF** the user asks about a company found in the 'KNOWLEDGE BASE', base your answer strictly on the JSON data provided for that company.
+        -   **IF** the user asks about a real company that is NOT in the 'KNOWLEDGE BASE', provide a brief, factual summary from your general knowledge. Start your response with "Based on general public information...".
+        -   **IF** the user's query seems to refer to a name that is not a real company or stock (e.g., a person's name), politely state that you can only provide information on real companies.
+        -   **IF** the query is off-topic, state your purpose: "I am a financial assistant and can only answer questions related to stocks and companies."
+
+        **KNOWLEDGE BASE (Your specific data):**
+        ```json
+        {knowledge_base}
+        ```
+
+        Now, continue the conversation based on the CHAT HISTORY. The last message is the user's most recent question.
+        """
+
+        # Prepend the system prompt to the message history for the API call
+        api_messages = [{"role": "system", "content": system_prompt}] + messages
+
         try:
-            chat_completion = self.client.chat.completions.create(
-                messages=[{"role": "user", "content": prompt}],
-                model=model,
-                temperature=0.7,
+            response = self.client.chat.completions.create(
+                model="llama-3.3-70b-versatile", # A powerful model is needed to follow complex instructions
+                messages=api_messages,
+                temperature=0.2, # Lower temperature to reduce hallucination and be more factual
+                max_tokens=300
             )
-            return chat_completion.choices[0].message.content
+            return response.choices[0].message.content.strip()
         except Exception as e:
-            print(f"Error calling Groq API: {e}")
-            return "Sorry, I encountered an error while generating a response."
+            return f"Couldn't process that question right now. Try again! Error: {str(e)}"

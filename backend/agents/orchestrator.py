@@ -3,6 +3,7 @@ from typing import List, Dict, Optional
 from datetime import datetime
 import json
 import os
+import glob
 
 from .scraper_agent import DateScraperAgent
 from .fetcher_agent import PDFFetcherAgent
@@ -108,75 +109,42 @@ class AgentOrchestrator:
         
         return results
     
-    async def _triage_query(self, question: str) -> dict:
+    def _load_all_analyses_as_context(self) -> str:
         """
-        Uses a small, fast LLM to classify the query and extract a symbol.
+        Loads all available analyses from JSON files into a single string for context.
         """
-        prompt = f"""
-        Analyze the user's query: "{question}"
-        Your task is to classify this query into one of three categories and identify the stock symbol if possible.
-        The categories are: REAL_STOCK, FAKE_STOCK, OFF_TOPIC.
+        all_analyses = []
+        analyses_path = os.path.join(self.storage_path, "analyses")
+        if not os.path.exists(analyses_path):
+            return "No specific company analysis data is available."
 
-        - If the query is about a real-world stock or company (e.g., "Reliance", "AAPL", "How is TCS doing?"), classify it as REAL_STOCK and extract the stock symbol.
-        - If the query mentions a name that is clearly not a real stock ticker or company (e.g., "mihit", "harshilagro"), classify it as FAKE_STOCK.
-        - If the query is unrelated to stocks, finance, or companies (e.g., "chicken biryani recipe"), classify it as OFF_TOPIC.
-
-        Respond ONLY with a JSON object in the format: {{"query_type": "CATEGORY", "symbol": "EXTRACTED_SYMBOL_OR_NULL"}}
-        """
-        try:
-            # Use a fast model for this classification task
-            chat_completion = self.analyzer.client.chat.completions.create(
-                messages=[{"role": "user", "content": prompt}],
-                model="llama3-8b-8192",
-                temperature=0.1,
-                response_format={"type": "json_object"},
-            )
-            response_json = json.loads(chat_completion.choices[0].message.content)
-            return response_json
-        except Exception as e:
-            print(f"Error during query triage: {e}")
-            # Default to a safe category in case of error
-            return {"query_type": "OFF_TOPIC", "symbol": None}
-
-    async def handle_chat_query(self, question: str, company_symbol: Optional[str] = None) -> str:
-        """
-        Handles chat queries with guardrails to prevent hallucination.
-        """
-        print(f"💬 Chat Query: {question}")
+        analysis_files = glob.glob(os.path.join(analyses_path, '*.json'))
+        for file_path in analysis_files:
+            try:
+                with open(file_path, 'r') as f:
+                    all_analyses.append(json.load(f))
+            except Exception as e:
+                print(f"Warning: Could not load or parse {file_path}: {e}")
         
-        # Step 1: Triage the query to understand its intent
-        triage_result = await self._triage_query(question)
-        query_type = triage_result.get("query_type")
-        extracted_symbol = triage_result.get("symbol")
+        if not all_analyses:
+            return "No specific company analysis data is available."
         
-        # Step 2: Handle bad queries immediately
-        if query_type == "FAKE_STOCK":
-            return "I'm sorry, but that doesn't seem to be a real stock or company. I can only provide information on publicly listed entities."
+        # Return the data as a JSON string
+        return json.dumps(all_analyses, indent=2)
 
-        if query_type == "OFF_TOPIC":
-            return "I am a financial analysis assistant and can only answer questions related to stocks and companies."
-
-        # Step 3: For real stock queries, decide which data to use
-        # Prioritize the symbol extracted from the question over the one from the frontend for accuracy
-        final_symbol = extracted_symbol or company_symbol
+    async def handle_chat_query(self, messages: List[Dict]) -> str:
+        """
+        Handles the entire chat conversation by passing history and knowledge to the analyzer.
+        (This signature now matches what main.py is sending)
+        """
+        print(f"💬 Handling chat with history of {len(messages)} messages...")
         
-        if not final_symbol:
-            return "Could you please specify which company you're asking about?"
-            
-        context = None
-        analysis = self._load_analysis(final_symbol) # Use your existing method
+        # Step 1: Prepare the entire knowledge base from local files
+        knowledge_base = self._load_all_analyses_as_context()
         
-        if analysis:
-            # Case A: We found an analysis file for this company
-            print(f"✅ Found '{final_symbol}' in local context. Answering with specific data.")
-            context = f"Latest analysis for {final_symbol}: {json.dumps(analysis)}"
-        else:
-            # Case B: No analysis file, but it's a real stock
-            print(f"ℹ️ '{final_symbol}' not in local context. Answering with general knowledge.")
-            # Context remains None
-
-        # Step 4: Call the analyzer agent to get the final answer
-        response = await self.analyzer.answer_question(question, context)
+        # Step 2: Call the analyzer agent with the full history and knowledge base
+        # NOTE: We must rename the function in analyzer_agent to match this
+        response = await self.analyzer.answer_with_memory(messages, knowledge_base)
         return response
     
     def _save_to_cache(self, filename: str, data: any):

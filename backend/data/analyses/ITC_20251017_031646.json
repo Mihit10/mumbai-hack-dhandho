@@ -1,0 +1,27 @@
+{
+  "company_symbol": "ITC",
+  "company_name": "ITC Limited",
+  "quarter": "Q4",
+  "financial_year": "FY24",
+  "metrics": {
+    "revenue": 29075.49,
+    "profit_after_tax": 2797.59,
+    "eps": 18.0,
+    "operating_margin": 14.24,
+    "yoy_growth": 3.97,
+    "qoq_growth": -2.6
+  },
+  "insights": "ITC Limited is putting up a solid performance in Q4 FY24, with revenue and profit numbers that are respectable, but not exactly crushing it. The YoY growth of 4% is meh, considering the current market conditions. Overall, it's a steady quarter, but not one that's going to blow your mind.",
+  "red_flags": [
+    "QoQ growth of -2.6% is a concern, indicating a potential slowdown in momentum",
+    "YoY growth of 4% is relatively low, suggesting the company may be facing challenges in accelerating its growth",
+    "The company needs to focus on accelerating its growth rate to stay competitive in the market"
+  ],
+  "highlights": [
+    "Revenue of \u20b929,075 Cr is a significant milestone, showing the company's ability to scale",
+    "Operating margin of 14.2% is a positive sign, indicating efficient cost management",
+    "EPS of \u20b918.00 is a decent return for investors, considering the current market scenario",
+    "The company's diversified portfolio has helped it navigate challenges and maintain a steady growth trajectory"
+  ],
+  "analyzed_at": "2025-10-17T03:16:46.562631"
+}

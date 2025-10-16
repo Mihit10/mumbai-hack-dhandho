@@ -1,0 +1,27 @@
+{
+  "company_symbol": "ASIANPAINT",
+  "company_name": "Asian Paints",
+  "quarter": "Q4",
+  "financial_year": "FY24",
+  "metrics": {
+    "revenue": 43691.57,
+    "profit_after_tax": 5244.83,
+    "eps": 29.14,
+    "operating_margin": 16.26,
+    "yoy_growth": -1.66,
+    "qoq_growth": -0.74
+  },
+  "insights": "Asian Paints' Q4 performance was meh, with a slight decline in YoY growth, but they're still solid in terms of profitability. The operating margin of 16.3% is respectable, but the overall growth numbers are a bit underwhelming. They're not crushing it, but they're holding their own.",
+  "red_flags": [
+    "YoY growth of -1.7% is a concern, indicating a decline in demand or market share",
+    "QoQ growth of -0.7% suggests a slowdown in momentum, which may be a worrying trend",
+    "The decline in growth rates may be a sign of increased competition or market saturation"
+  ],
+  "highlights": [
+    "Profit After Tax of \u20b95,245 Cr is a significant number, indicating the company's ability to maintain profitability",
+    "Operating Margin of 16.3% suggests efficient cost management and pricing power",
+    "EPS of \u20b929.14 is a positive sign for investors, indicating a decent return on investment",
+    "Revenue of \u20b943,692 Cr is a substantial figure, demonstrating the company's scale and market presence"
+  ],
+  "analyzed_at": "2025-10-17T03:06:43.001986"
+}

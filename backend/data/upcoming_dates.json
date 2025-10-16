@@ -1,50 +1,29 @@
 [
   {
-    "company_symbol": "ASIANPAINT",
-    "company_name": "Asian Paints",
-    "result_date": "2025-10-18",
+    "company_symbol": "TECHM",
+    "company_name": "Tech Mahindra",
+    "result_date": "2025-10-19",
+    "quarter": "Q1",
+    "financial_year": "FY25"
+  },
+  {
+    "company_symbol": "ITC",
+    "company_name": "ITC Limited",
+    "result_date": "2025-10-20",
     "quarter": "Q4",
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "HINDUNILVR",
-    "company_name": "Hindustan Unilever",
-    "result_date": "2025-10-19",
-    "quarter": "Q3",
-    "financial_year": "FY25"
-  },
-  {
-    "company_symbol": "RELIANCE",
-    "company_name": "Reliance Industries",
+    "company_symbol": "SUNPHARMA",
+    "company_name": "Sun Pharma",
     "result_date": "2025-10-21",
     "quarter": "Q2",
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "WIPRO",
-    "company_name": "Wipro",
-    "result_date": "2025-10-24",
-    "quarter": "Q1",
-    "financial_year": "FY25"
-  },
-  {
-    "company_symbol": "INFY",
-    "company_name": "Infosys",
-    "result_date": "2025-10-25",
-    "quarter": "Q1",
-    "financial_year": "FY25"
-  },
-  {
-    "company_symbol": "KOTAKBANK",
-    "company_name": "Kotak Mahindra Bank",
-    "result_date": "2025-10-26",
-    "quarter": "Q1",
-    "financial_year": "FY25"
-  },
-  {
     "company_symbol": "TCS",
     "company_name": "Tata Consultancy Services",
-    "result_date": "2025-10-27",
+    "result_date": "2025-10-26",
     "quarter": "Q4",
     "financial_year": "FY25"
   },
@@ -56,16 +35,23 @@
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "TITAN",
-    "company_name": "Titan Company",
+    "company_symbol": "HINDUNILVR",
+    "company_name": "Hindustan Unilever",
     "result_date": "2025-10-27",
-    "quarter": "Q2",
+    "quarter": "Q3",
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "AXISBANK",
-    "company_name": "Axis Bank",
+    "company_symbol": "HDFCBANK",
+    "company_name": "HDFC Bank",
     "result_date": "2025-10-29",
+    "quarter": "Q3",
+    "financial_year": "FY25"
+  },
+  {
+    "company_symbol": "ULTRACEMCO",
+    "company_name": "UltraTech Cement",
+    "result_date": "2025-10-30",
     "quarter": "Q3",
     "financial_year": "FY25"
   },
@@ -77,24 +63,17 @@
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "TECHM",
-    "company_name": "Tech Mahindra",
-    "result_date": "2025-10-31",
-    "quarter": "Q1",
+    "company_symbol": "TITAN",
+    "company_name": "Titan Company",
+    "result_date": "2025-11-01",
+    "quarter": "Q2",
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "ITC",
-    "company_name": "ITC Limited",
+    "company_symbol": "AXISBANK",
+    "company_name": "Axis Bank",
     "result_date": "2025-11-03",
-    "quarter": "Q4",
-    "financial_year": "FY25"
-  },
-  {
-    "company_symbol": "ICICIBANK",
-    "company_name": "ICICI Bank",
-    "result_date": "2025-11-05",
-    "quarter": "Q4",
+    "quarter": "Q3",
     "financial_year": "FY25"
   },
   {
@@ -105,38 +84,59 @@
     "financial_year": "FY25"
   },
   {
+    "company_symbol": "ICICIBANK",
+    "company_name": "ICICI Bank",
+    "result_date": "2025-11-10",
+    "quarter": "Q4",
+    "financial_year": "FY25"
+  },
+  {
+    "company_symbol": "INFY",
+    "company_name": "Infosys",
+    "result_date": "2025-11-11",
+    "quarter": "Q1",
+    "financial_year": "FY25"
+  },
+  {
+    "company_symbol": "WIPRO",
+    "company_name": "Wipro",
+    "result_date": "2025-11-11",
+    "quarter": "Q1",
+    "financial_year": "FY25"
+  },
+  {
     "company_symbol": "BHARTIARTL",
     "company_name": "Bharti Airtel",
-    "result_date": "2025-11-08",
+    "result_date": "2025-11-11",
     "quarter": "Q3",
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "SUNPHARMA",
-    "company_name": "Sun Pharma",
-    "result_date": "2025-11-10",
+    "company_symbol": "ASIANPAINT",
+    "company_name": "Asian Paints",
+    "result_date": "2025-11-11",
+    "quarter": "Q4",
+    "financial_year": "FY25"
+  },
+  {
+    "company_symbol": "RELIANCE",
+    "company_name": "Reliance Industries",
+    "result_date": "2025-11-14",
     "quarter": "Q2",
     "financial_year": "FY25"
   },
   {
-    "company_symbol": "ULTRACEMCO",
-    "company_name": "UltraTech Cement",
-    "result_date": "2025-11-10",
-    "quarter": "Q3",
+    "company_symbol": "KOTAKBANK",
+    "company_name": "Kotak Mahindra Bank",
+    "result_date": "2025-11-14",
+    "quarter": "Q1",
     "financial_year": "FY25"
   },
   {
     "company_symbol": "BAJFINANCE",
     "company_name": "Bajaj Finance",
-    "result_date": "2025-11-14",
-    "quarter": "Q4",
-    "financial_year": "FY25"
-  },
-  {
-    "company_symbol": "HDFCBANK",
-    "company_name": "HDFC Bank",
     "result_date": "2025-11-16",
-    "quarter": "Q3",
+    "quarter": "Q4",
     "financial_year": "FY25"
   }
 ]

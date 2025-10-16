@@ -1,10 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict
 import uvicorn
 from datetime import datetime
-from typing import Optional
+
 
 from agents.orchestrator import AgentOrchestrator
 from agents.scraper_agent import DateScraperAgent
@@ -25,6 +25,8 @@ app.add_middleware(
 
 # Initialize orchestrator
 orchestrator = AgentOrchestrator()
+# --- NEW: In-memory store for the current session's chat history ---
+chat_history: List[Dict] = []
 
 # Pydantic models
 class Company(BaseModel):
@@ -114,16 +116,35 @@ async def get_latest_results(limit: int = 10):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching results: {str(e)}")
 
+@app.post("/api/chat/new")
+async def new_chat_session():
+    """Clears the chat history to start a new session."""
+    global chat_history
+    chat_history = []
+    print("✨ New chat session started. History cleared.")
+    return {"message": "New chat session started."}
+
+@app.post("/api/chat")
 @app.post("/api/chat")
 async def chat_with_ai(query: ChatQuery):
     """
-    Conversational interface - ask questions about company results
-    Example: "How did TCS perform this quarter?"
+    Conversational interface that maintains session history.
     """
+    global chat_history
     try:
-        response = await orchestrator.handle_chat_query(query.question, query.company_symbol)
-        return {"response": response}
+        # Append user's new message to the history
+        chat_history.append({"role": "user", "content": query.question})
+
+        response_text = await orchestrator.handle_chat_query(chat_history)
+
+        # Append assistant's response to the history for memory
+        chat_history.append({"role": "assistant", "content": response_text})
+        
+        return {"response": response_text}
     except Exception as e:
+        # If something fails, remove the last user message to allow a retry
+        if chat_history and chat_history[-1]["role"] == "user":
+            chat_history.pop()
         raise HTTPException(status_code=500, detail=f"Chat failed: {str(e)}")
 
 @app.get("/api/health")
