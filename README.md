@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+-----
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📈 Market Khabri - AI-Powered Financial Analysis Platform
 
-## Available Scripts
+Welcome to **Market Khabri**, your personal stock market intelligence platform. This application leverages a sophisticated agent-based system to fetch, parse, and analyze corporate financial results, providing you with AI-powered insights and a conversational chat interface to ask questions about company performance.
 
-In the project directory, you can run:
+This project is a full-stack application featuring a **React.js** frontend and a **Python (FastAPI)** backend.
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  * **📊 Results Calendar**: View a list of companies with upcoming quarterly result announcements.
+  * **🤖 One-Click AI Analysis**: Select any company from the calendar to trigger a full analysis pipeline. The system downloads the latest results, extracts key financial metrics, and generates an AI-powered summary.
+  * **📈 Latest Analysis Dashboard**: See a clean, card-based view of the most recently analyzed companies, complete with key metrics, highlights, and potential red flags.
+  * **💬 Conversational AI Chat**: Ask questions about company performance in plain English. The chatbot maintains conversation history and uses its knowledge base to provide accurate, context-aware answers.
+  * **🧠 Agentic Workflow**: The backend is built on a powerful multi-agent architecture where each agent has a specific responsibility (Scraping, Fetching, Parsing, Analyzing).
+  * **🛡️ Demo Data Fallback**: For robustness (and hackathon-readiness\!), the system gracefully falls back to realistic demo data if live data cannot be fetched, ensuring the application is always functional.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+  * **Frontend**: React.js, Tailwind CSS
+  * **Backend**: Python, FastAPI
+  * **AI/LLM**: Groq API with LLaMA 3
+  * **Core Python Libraries**: `uvicorn`, `pydantic`, `python-dotenv`, `beautifulsoup4`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Getting Started
 
-### `npm run build`
+Follow these instructions to set up and run the project on your local machine.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  * Node.js and npm (for the frontend)
+  * Python 3.8+ and pip (for the backend)
+  * A Groq API Key (for the AI analysis features)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1\. Setup the Backend
 
-### `npm run eject`
+First, navigate to the `backend` directory and set up the Python environment.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+# 1. Go into the backend folder
+cd backend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 2. (Recommended) Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# 3. Install the required Python packages
+pip install -r requirements.txt 
+# Or if you use uv/rye: pip install -r pyproject.toml
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# 4. Create the environment file
+# Create a file named .env in the backend folder and add your Groq API key
+touch .env
+```
 
-## Learn More
+Your **`.env`** file should look like this:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+GROQ_API_KEY="your_groq_api_key_here"
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 2\. Setup the Frontend
 
-### Code Splitting
+Now, open a **new terminal** and navigate to the **root directory** of the project to set up the React application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+# 1. Go to the project's root folder (where package.json is)
+# (If you are in the backend folder, you can use `cd ..`)
 
-### Analyzing the Bundle Size
+# 2. Install the required npm packages
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 3\. Run the Application
 
-### Making a Progressive Web App
+You need to have both the backend server and the frontend development server running simultaneously.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  * **In your backend terminal:**
 
-### Advanced Configuration
+    ```bash
+    # Make sure you are in the /backend directory
+    uvicorn main:app --reload
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    The backend server will start, usually on `http://127.0.0.1:8000`.
 
-### Deployment
+  * **In your frontend (root) terminal:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    ```bash
+    # Make sure you are in the project's root directory
+    npm start
+    ```
 
-### `npm run build` fails to minify
+    The React application will open in your browser, usually at `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can now use the application\!
+
+## 🤖 How the Agentic Workflow Works
+
+The core of Market Khabri is its backend architecture, which uses a team of specialized AI agents that work together in a pipeline.
+
+1.  **`ScraperAgent`**: This agent is responsible for fetching the list of companies with upcoming financial results. It attempts to get live data and falls back to a pre-defined list for reliability.
+2.  **`PDFFetcherAgent`**: When a user requests an analysis, this agent's job is to find and download the official quarterly results PDF from the internet for that company. If it fails, it signals the next agent to use demo data.
+3.  **`ParserAgent`**: This agent takes the downloaded PDF (or the demo signal) and extracts the key financial metrics, such as Revenue, Profit After Tax, EPS, etc., into a structured format.
+4.  **`AnalyzerAgent`**: The final agent in the pipeline. It takes the structured financial data and uses a powerful LLM (via Groq) to generate qualitative insights, highlights, and potential red flags in a human-readable, "street-smart" tone.
+
+This entire process is managed by the **`AgentOrchestrator`**, which ensures each agent performs its task in the correct order.
+
+## 📁 Project Structure
+
+```
+/
+├── backend/
+│   ├── agents/             # Contains all the specialized AI agents
+│   ├── data/               # Stores cached data, generated analyses, and PDFs
+│   ├── main.py             # The main FastAPI application file
+│   └── ...
+├── src/
+│   ├── components/         # React components (Dashboard, LandingPage)
+│   ├── services/           # API service for frontend-backend communication
+│   ├── App.js              # Main React app component
+│   └── ...
+├── public/                 # Static assets for the React app
+└── package.json            # Frontend dependencies and scripts
+```
