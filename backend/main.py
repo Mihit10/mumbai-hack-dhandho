@@ -79,13 +79,27 @@ async def root():
     }
 
 @app.get("/api/upcoming-results", response_model=List[ResultDate])
-async def get_upcoming_results(limit: int = 20):
+async def get_upcoming_results(limit: int = 20, q: Optional[str] = None): # <-- Add q parameter
     """
-    Fetch upcoming quarterly result dates from NSE/BSE
+    Fetch upcoming quarterly result dates from NSE/BSE.
+    Can be filtered with a search query 'q'.
     """
     try:
         results = await orchestrator.get_upcoming_result_dates(limit)
-        return results
+
+        # --- ADD THIS SEARCH LOGIC ---
+        if q:
+            print(f"Filtering results for query: '{q}'")
+            search_term = q.lower()
+            filtered_results = [
+                company for company in results
+                if search_term in company['company_name'].lower() or \
+                   search_term in company['company_symbol'].lower()
+            ]
+            return filtered_results
+        # ----------------------------
+
+        return results # Return all results if no query
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error fetching result dates: {str(e)}")
 

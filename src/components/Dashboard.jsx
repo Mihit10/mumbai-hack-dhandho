@@ -15,6 +15,7 @@ const Dashboard = ({ onBackToHome }) => {
   const [error, setError] = useState(null);
   const [processingCompany, setProcessingCompany] = useState(null);
   const [notification, setNotification] = useState(null); // New state for toaster notification
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Load data on mount and tab change
   useEffect(() => {
@@ -33,11 +34,26 @@ const Dashboard = ({ onBackToHome }) => {
     }
   }, [notification]);
 
-  const loadUpcomingResults = async () => {
+
+  
+useEffect(() => {
+    // Set a timer to run after the user stops typing for 300ms
+    const timer = setTimeout(() => {
+      // Only search when the calendar tab is active
+      if (activeTab === 'calendar') {
+        loadUpcomingResults(searchQuery);
+      }
+    }, 300);
+
+    // Cleanup function: If the user types again, clear the previous timer
+    return () => clearTimeout(timer);
+  }, [searchQuery, activeTab]); // Re-run this effect when searchQuery or activeTab changes
+
+  const loadUpcomingResults = async (query = '') => { // <-- Modify to accept query
     setLoading(true);
     setError(null);
     try {
-      const data = await api.fetchUpcomingResults();
+      const data = await api.fetchUpcomingResults(query); // <-- Pass the query
       setUpcomingResults(data);
     } catch (err) {
       setError('Failed to load upcoming results');
@@ -132,6 +148,8 @@ const Dashboard = ({ onBackToHome }) => {
                 type="text"
                 placeholder="Search companies..."
                 className="pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-cyan-500 focus:outline-none w-64"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <button 

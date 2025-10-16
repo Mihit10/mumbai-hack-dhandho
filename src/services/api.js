@@ -3,12 +3,12 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 // API Service
 const api = {
-  async fetchUpcomingResults() {
+  async fetchUpcomingResults(query = '') { // <-- Add query parameter
     try {
-      const response = await fetch(`${API_BASE_URL}/upcoming-results`);
+      // Append the query to the URL if it exists
+      const response = await fetch(`${API_BASE_URL}/upcoming-results?limit=20&q=${query}`);
       if (!response.ok) throw new Error('Failed to fetch upcoming results');
       const data = await response.json();
-      // The backend returns the results directly, not nested under a 'results' key.
       return data || [];
     } catch (error) {
       console.error('API Error:', error);

@@ -1,0 +1,26 @@
+{
+  "company_symbol": "SUNPHARMA",
+  "company_name": "SUNPHARMA",
+  "quarter": "Q4",
+  "financial_year": "FY24",
+  "metrics": {
+    "revenue": 47825.3,
+    "profit_after_tax": 3391.01,
+    "eps": 11.33,
+    "operating_margin": 16.4,
+    "yoy_growth": 10.28,
+    "qoq_growth": 4.08
+  },
+  "insights": "SUNPHARMA is crushing it with a solid 10.3% YoY growth, showing they're on the right track. Their Q4 performance is a testament to their strength, with revenue and profit numbers looking pretty good. Overall, it's a great finish to the fiscal year, with some decent momentum going into the next one.",
+  "red_flags": [
+    "No major concerns in this quarter, but it's essential to monitor the sustainability of this growth rate",
+    "The pharmaceutical industry is highly competitive and regulated, so SUNPHARMA needs to stay ahead of the curve to maintain its momentum"
+  ],
+  "highlights": [
+    "Double-digit YoY growth of 10.3% is a significant achievement, indicating a strong business trajectory",
+    "Operating margin of 16.4% is respectable, suggesting efficient cost management",
+    "QoQ growth of 4.1% shows consistent performance, which is a positive sign for investors",
+    "EPS of \u20b911.33 is a good return for shareholders, reflecting the company's profitability"
+  ],
+  "analyzed_at": "2025-10-17T04:02:58.422749"
+}
