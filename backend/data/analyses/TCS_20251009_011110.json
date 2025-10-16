@@ -1,0 +1,25 @@
+{
+  "company_symbol": "TCS",
+  "company_name": "Tata Consultancy Services",
+  "quarter": "Q4",
+  "financial_year": "FY24",
+  "metrics": {
+    "revenue": 62367.25,
+    "profit_after_tax": 12493.32,
+    "eps": 34.87,
+    "operating_margin": 19.49,
+    "yoy_growth": 6.9,
+    "qoq_growth": 8.0
+  },
+  "insights": "TCS is showing steady growth this quarter with \u20b962,367 Cr in revenue (+6.9% YoY). Operating margins at 19.5% show strong operational efficiency. Not bad, but room for improvement.",
+  "red_flags": [
+    "Nothing major to worry about, but keep an eye on market trends"
+  ],
+  "highlights": [
+    "Healthy growth trajectory with 6.9% YoY increase",
+    "Solid margins of 19.5% showing operational discipline",
+    "Impressive EPS of \u20b934.87 - shareholders eating good!",
+    "Massive scale with revenue crossing \u20b950,000 Cr - market leader vibes"
+  ],
+  "analyzed_at": "2025-10-09T01:11:10.245597"
+}
