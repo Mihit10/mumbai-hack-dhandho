@@ -1,8 +1,8 @@
 -----
 
-# 📈 Market Khabri - AI-Powered Financial Analysis Platform
+# 📈 DHANDHO - AI-Powered Financial Analysis Platform
 
-Welcome to **Market Khabri**, your personal stock market intelligence platform. This application leverages a sophisticated agent-based system to fetch, parse, and analyze corporate financial results, providing you with AI-powered insights and a conversational chat interface to ask questions about company performance.
+Welcome to **DHANDHO**, your personal stock market intelligence platform. This application leverages a sophisticated agent-based system to fetch, parse, and analyze corporate financial results, providing you with AI-powered insights and a conversational chat interface to ask questions about company performance.
 
 This project is a full-stack application featuring a **React.js** frontend and a **Python (FastAPI)** backend.
 
@@ -97,7 +97,7 @@ You can now use the application\!
 
 ## 🤖 How the Agentic Workflow Works
 
-The core of Market Khabri is its backend architecture, which uses a team of specialized AI agents that work together in a pipeline.
+The core of DHANDHO is its backend architecture, which uses a team of specialized AI agents that work together in a pipeline.
 
 1.  **`ScraperAgent`**: This agent is responsible for fetching the list of companies with upcoming financial results. It attempts to get live data and falls back to a pre-defined list for reliability.
 2.  **`PDFFetcherAgent`**: When a user requests an analysis, this agent's job is to find and download the official quarterly results PDF from the internet for that company. If it fails, it signals the next agent to use demo data.
